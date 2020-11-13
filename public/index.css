@@ -45,6 +45,7 @@ section {
 }
 .selector-btn {
   border: #2196f3 1px solid;
+  outline: none;
   background: #fff;
   border-radius: 50%;
   font-size: 30px;
@@ -86,10 +87,14 @@ section {
 .save-btn {
   position: relative;
   margin-right: 26px;
+  border: none;
+  background: none;
+  outline: none;
 }
 #saved-svg {
   position: absolute;
-  left: 0;
+  left: 6px;
+  top: 0;
   visibility: hidden;
 }
 .delete-btn {
