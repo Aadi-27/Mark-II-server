@@ -64,15 +64,3 @@ async function main(client) {
 }
 
 main(client).catch(console.error);
-
-// mongoose
-//   .connect(
-//     "mongodb+srv://mark2admin:adminMark2@cluster0.ex7ac.mongodb.net/bookmarks?retryWrites=true&w=majority",
-//     {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       useFindAndModify: false,
-//     }
-//   )
-//   .then(() => console.log("mongoDB connection established"))
-//   .catch((err) => console.log(err));
