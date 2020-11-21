@@ -3,6 +3,7 @@ const cors = require("cors");
 const { MongoClient } = require("mongodb");
 const app = express();
 const Bookmark = require("./models/bookmark");
+const webPush = require("web-push");
 require("dotenv").config();
 
 const client = new MongoClient(process.env.MONGODB_URI, {
@@ -14,8 +15,9 @@ const PORT = process.env.PORT || 5005;
 app.use(express.json());
 app.use(cors());
 
+// CRUD operations in bookmarks items
 async function AddNewBookmark(client, newEntry) {
-  const addedBookmark = client
+  const addedBookmark = await client
     .db("bookmarks")
     .collection("items")
     .insertOne(newEntry);
@@ -28,7 +30,14 @@ async function FetchAllBookmarks(client) {
   return data;
 }
 
-// fetches all data from db and sends to client
+async function AddNewSubscription(client, newSub) {
+  const addedSub = await client
+    .db("bookmarks")
+    .collection("subs")
+    .insertOne(newSub);
+  return addedSub;
+}
+
 app.get("/saved-bookmarks", async (_req, res) => {
   try {
     const data = await FetchAllBookmarks(client);
@@ -46,6 +55,16 @@ app.post("/new", async (req, _res) => {
   });
   try {
     const result = await AddNewBookmark(client, newEntry);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+});
+
+// CRUD operations in bookmarks subs
+app.post("/api/save-subscription/", async (req, res) => {
+  try {
+    const result = await AddNewSubscription(client, req.body);
     return result;
   } catch (error) {
     throw error;
